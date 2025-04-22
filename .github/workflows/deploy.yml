@@ -22,8 +22,8 @@ jobs:
         with:
           credentials_json: "${{ secrets.GCP_SA_KEY }}"
 
-      - name: Configure Docker for GCR
-        run: gcloud auth configure-docker --quiet
+      - name: Configure Docker to use Artifact Registry
+        run: gcloud auth configure-docker ${{vars.REGION}}-docker.pkg.dev
 
       - name: Build and push backend image
         run: |
