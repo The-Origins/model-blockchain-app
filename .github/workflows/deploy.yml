@@ -27,26 +27,26 @@ jobs:
 
       - name: Build and push backend image
         run: |
-          docker build -t ${{vars.BACKEND_REG_REPO}} ./backend
-          docker push ${{vars.BACKEND_REG_REPO}}
+          docker build -t ${{vars.BACKEND_REG_REPO}}/app ./backend
+          docker push ${{vars.BACKEND_REG_REPO}}/app
 
       - name: Deploy backend to Cloud Run
         run: |
           gcloud run deploy backend \
-            --image ${{vars.BACKEND_REG_REPO}} \
+            --image ${{vars.BACKEND_REG_REPO}}/app \
             --platform managed \
             --region ${{vars.REGION}} \
             --${{secrets.ACCESS}}
 
       - name: Build and push frontend image
         run: |
-          docker build -t ${{vars.FRONTEND_REG_REPO}} ./frontend --build-arg NEXT_PUBLIC_API_URL=http://localhost
-          docker push ${{vars.FRONTEND_REG_REPO}}
+          docker build -t ${{vars.FRONTEND_REG_REPO}}/app ./frontend --build-arg NEXT_PUBLIC_API_URL=http://localhost
+          docker push ${{vars.FRONTEND_REG_REPO}}/app
 
       - name: Deploy frontend to Cloud Run
         run: |
           gcloud run deploy frontend \
-            --image ${{vars.FRONTEND_REG_REPO}} \
+            --image ${{vars.FRONTEND_REG_REPO}}/app \
             --platform managed \
             --region ${{vars.REGION}} \
             --allow-unauthenticated
