@@ -1,4 +1,4 @@
-FROM python:alpine
+FROM python:3.10
 
 # Install dependencies for Rust and building wheels
 RUN apt-get update && apt-get install -y \
