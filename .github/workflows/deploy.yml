@@ -27,7 +27,7 @@ jobs:
 
       - name: Build and push backend image
         run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend ./backend
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend ../../backend
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend
 
       - name: Deploy backend to Cloud Run
@@ -40,7 +40,7 @@ jobs:
 
       - name: Build and push frontend image
         run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/frontend ./frontend --build-arg NEXT_PUBLIC_API_URL=http://localhost
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/frontend ../../frontend --build-arg NEXT_PUBLIC_API_URL=http://localhost
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/frontend
 
       - name: Deploy frontend to Cloud Run
