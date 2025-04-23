@@ -27,7 +27,7 @@ jobs:
 
       - name: Build and push backend image
         run: |
-          docker build -t ${{vars.BACKEND_REG_REPO}}/app ./backend --build-arg FRONTEND_URL=${{vars.FRONTEND_URL}}
+          docker build -t ${{vars.BACKEND_REG_REPO}}/app ./backend
           docker push ${{vars.BACKEND_REG_REPO}}/app
 
       - name: Deploy backend to Cloud Run
@@ -36,7 +36,8 @@ jobs:
             --image ${{vars.BACKEND_REG_REPO}}/app \
             --platform managed \
             --region ${{vars.REGION}} \
-            --${{secrets.ACCESS}}
+            --${{secrets.ACCESS}} \
+            --set-env-vars FRONTEND_URL=${{vars.FRONTEND_URL}}
 
       - name: Build and push frontend image
         run: |
