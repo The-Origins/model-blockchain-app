@@ -12,5 +12,5 @@ RUN npm run build
 
 
 # Serve using Next.js built-in server
-EXPOSE 3000
+EXPOSE 8080
 CMD ["npm", "start"]
