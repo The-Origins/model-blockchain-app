@@ -3,16 +3,19 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 import json
+import os
 from blockchain.blockchain import Blockchain
 from blockchain.wallet import Wallet
 from blockchain.transaction import Transaction
 
 app = FastAPI(title="Blockchain API")
 
+frontEndURL = os.getenv("FRONTEND_URL", "http://localhost:3000")
+
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Frontend URL
+    allow_origins=[frontEndURL],  # Frontend URL
     allow_credentials=True,
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
@@ -145,4 +148,6 @@ async def get_wallets():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000) 
+
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port) 

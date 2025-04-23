@@ -16,6 +16,8 @@ WORKDIR /app
 
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
+ARG FRONTEND_URL
+ENV FRONTEND_URL=$FRONTEND_URL
 
 COPY . .
 
