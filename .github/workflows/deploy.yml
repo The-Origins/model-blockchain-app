@@ -50,4 +50,4 @@ jobs:
             --image ${{vars.FRONTEND_REG_REPO}}/app \
             --platform managed \
             --region ${{vars.REGION}} \
-            --allow-unauthenticated
+            --${{secrets.ACCESS}}

@@ -11,6 +11,8 @@ from blockchain.transaction import Transaction
 app = FastAPI(title="Blockchain API")
 
 frontEndURL = os.getenv("FRONTEND_URL", "http://localhost:3000")
+print(frontEndURL)
+
 
 # Add CORS middleware
 app.add_middleware(
